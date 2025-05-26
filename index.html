@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goofy Spheres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #7b2ff7, #f107a3);
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    header {
+      padding: 40px 0;
+    }
+
+    header img {
+      height: 120px;
+      animation: fadeSlideDown 1s ease-out;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-top: 10px;
+      animation: fadeSlideUp 1s ease-out;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin: 30px auto;
+      padding: 15px 35px;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .download-btn:hover {
+      background: #fff;
+      color: #7b2ff7;
+      transform: scale(1.05);
+    }
+
+    .rating-section {
+      margin: 50px 0;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .rating-section p {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    .rating-icons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .rating-icons div {
+      text-align: center;
+    }
+
+    .rating-icons img {
+      width: 70px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .rating-icons img:hover {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .rating-count {
+      font-size: 1.1em;
+      margin-top: 8px;
+      color: #fffd;
+    }
+
+    .feedback {
+      margin-top: 25px;
+      font-size: 1.2em;
+      color: #fff;
+      height: 30px;
+      transition: opacity 0.3s;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 25px 0;
+      font-size: 0.9em;
+      color: #eee;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Goofy Spheres Logo">
+  </header>
+
+  <main>
+    <h1>Welcome to Goofy Spheres!</h1>
+
+    <!-- Update this link with your real Drive download link -->
+    <a href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID" class="download-btn" target="_blank" rel="noopener noreferrer">
+      Download Game
+    </a>
+
+    <div class="rating-section">
+      <p>Did you like the game?</p>
+      <div class="rating-icons">
+        <div>
+          <img src="thumbsup.png" alt="Thumbs Up" onclick="vote('like')">
+          <div class="rating-count" id="like-count">0</div>
+        </div>
+        <div>
+          <img src="thumbsdown.png" alt="Thumbs Down" onclick="vote('dislike')">
+          <div class="rating-count" id="dislike-count">0</div>
+        </div>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Goofy Spheres. All rights reserved.
+  </footer>
+
+  <script>
+    // Load counts from localStorage or initialize
+    let likes = localStorage.getItem('goofyLikes') || 0;
+    let dislikes = localStorage.getItem('goofyDislikes') || 0;
+    let voted = localStorage.getItem('goofyVoted');
+
+    document.getElementById('like-count').textContent = likes;
+    document.getElementById('dislike-count').textContent = dislikes;
+
+    function vote(type) {
+      const feedback = document.getElementById('feedback');
+
+      if (voted) {
+        feedback.textContent = 'You already voted!';
+        return;
+      }
+
+      if (type === 'like') {
+        likes++;
+        localStorage.setItem('goofyLikes', likes);
+        document.getElementById('like-count').textContent = likes;
+        feedback.textContent = 'Thanks for the 👍!';
+      } else {
+        dislikes++;
+        localStorage.setItem('goofyDislikes', dislikes);
+        document.getElementById('dislike-count').textContent = dislikes;
+        feedback.textContent = 'Thanks for the feedback! 👎';
+      }
+
+      // Prevent multiple votes
+      localStorage.setItem('goofyVoted', 'true');
+    }
+  </script>
+
+</body>
+</html>
