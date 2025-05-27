@@ -133,7 +133,20 @@
       Download Game
     </a>
 
-    
+    <div class="rating-section">
+      <p>Did you like the game?</p>
+      <div class="rating-icons">
+        <div>
+          <img src="thumbsup.png" alt="Thumbs Up" onclick="vote('like')">
+          <div class="rating-count" id="like-count">0</div>
+        </div>
+        <div>
+          <img src="thumbsdown.png" alt="Thumbs Down" onclick="vote('dislike')">
+          <div class="rating-count" id="dislike-count">0</div>
+        </div>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
   </main>
 
   <footer>
@@ -141,9 +154,9 @@
   </footer>
 
   <script>
-    // Load counts from localStorage or initialize
-    let likes = localStorage.getItem('goofyLikes') || 0;
-    let dislikes = localStorage.getItem('goofyDislikes') || 0;
+    // Set initial values to 0
+    let likes = 0;
+    let dislikes = 0;
     let voted = localStorage.getItem('goofyVoted');
 
     document.getElementById('like-count').textContent = likes;
@@ -159,17 +172,14 @@
 
       if (type === 'like') {
         likes++;
-        localStorage.setItem('goofyLikes', likes);
         document.getElementById('like-count').textContent = likes;
         feedback.textContent = 'Thanks for the 👍!';
       } else {
         dislikes++;
-        localStorage.setItem('goofyDislikes', dislikes);
         document.getElementById('dislike-count').textContent = dislikes;
         feedback.textContent = 'Thanks for the feedback! 👎';
       }
 
-      // Prevent multiple votes
       localStorage.setItem('goofyVoted', 'true');
     }
   </script>
